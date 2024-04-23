@@ -1,0 +1,63 @@
+[{
+  "_id": {
+    "$oid": "6627595f31180628b8ec29fe"
+  },
+  "assignedOrders": [],
+  "name": "Vikas",
+  "capacity": 234,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6627596431180628b8ec2a00"
+  },
+  "assignedOrders": [],
+  "name": "Vikas",
+  "capacity": 234,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6627596c31180628b8ec2a02"
+  },
+  "assignedOrders": [],
+  "name": "RamVikas",
+  "capacity": 234,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6627597431180628b8ec2a04"
+  },
+  "assignedOrders": [],
+  "name": "ShyamRamVikas",
+  "capacity": 234,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6627598331180628b8ec2a06"
+  },
+  "assignedOrders": [],
+  "name": "KesarShyamRamVikas",
+  "capacity": 24,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66275ddc7c1eed4250db2459"
+  },
+  "assignedOrders": [],
+  "name": "ram",
+  "capacity": 4,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66275de67c1eed4250db245b"
+  },
+  "assignedOrders": [],
+  "name": "ramcHANDRA",
+  "capacity": 4,
+  "__v": 0
+}]
