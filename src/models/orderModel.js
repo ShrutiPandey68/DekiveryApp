@@ -10,7 +10,11 @@ const orderSchema = new mongoose.Schema({
   assignedTo: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'DeliveryBoy'
-  }
+  },
+  status: {
+    type: String,
+    default: 'Pending',
+  },
 });
 
 module.exports = mongoose.model('Order', orderSchema);

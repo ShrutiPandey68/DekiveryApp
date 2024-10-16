@@ -1,57 +1,52 @@
 const Order = require('../models/orderModel');
-const assignOrdersToDeliveryBoys = require('../assignOrders');
+const DeliveryBoy = require('../models/deliveryBoyModel');
+
+// Fetch all orders
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find().populate('deliveryBoy');
     res.json(orders);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch orders' });
   }
 };
 
-exports.createOrder = async (req, res) => {
-  const order = new Order({
-    orderId: req.body.orderId,
-    quantity: req.body.quantity
-  });
-
-  try {
-    const newOrder = new Order(req.body);
-    await newOrder.save();
-    await assignOrdersToDeliveryBoys();
-    res.status(201).json(newOrder);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
-
-// Update an existing order
+// Update an order and assign a delivery boy
 exports.updateOrder = async (req, res) => {
   try {
+    const { deliveryBoyId } = req.body;
     const order = await Order.findById(req.params.id);
-    if (order == null) {
-      return res.status(404).json({ message: 'Order not found' });
+    
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
     }
-    if (req.body.assignedTo) {
-      // Assign the order to a delivery boy
-      await order.assignOrderToDeliveryBoy(req.body.assignedTo);
+
+    // Assign delivery boy to order
+    const deliveryBoy = await DeliveryBoy.findById(deliveryBoyId);
+    if (!deliveryBoy || !deliveryBoy.isAvailable) {
+      return res.status(400).json({ error: 'Invalid or unavailable delivery boy' });
     }
+
+    order.deliveryBoy = deliveryBoyId;
+    order.status = 'Assigned';
+    await order.save();
+
+    // Mark the delivery boy as not available
+    deliveryBoy.isAvailable = false;
+    await deliveryBoy.save();
+
     res.json(order);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update order' });
   }
 };
 
 // Delete an order
 exports.deleteOrder = async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
-    if (order == null) {
-      return res.status(404).json({ message: 'Order not found' });
-    }
-    await order.remove();
-    res.json({ message: 'Order deleted' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    await Order.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Order deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete order' });
   }
 };
