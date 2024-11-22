@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "proxy": "http://localhost:3001",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
@@ -19,7 +18,7 @@
     "node-cron": "^3.0.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.7"
   },
   "description": "Deliveryapp"
 }

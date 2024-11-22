@@ -1,4 +1,4 @@
-const express = require('express');
+var express = require('express');
 const app = express();
 const cors = require("cors");
 const connectDB = require('./db');
